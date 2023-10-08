@@ -11,6 +11,7 @@ import '../../util/loader.dart';
 
 class DashBoardviewModel extends ChangeNotifier {
   int selectedNeoBankingMode = 0;
+   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   void setSelectedNeoBankingMode(int val) {
     selectedNeoBankingMode = val;
     notifyListeners();
@@ -102,13 +103,13 @@ class DashBoardviewModel extends ChangeNotifier {
       
     }
 
-     updateRecord(context); //updating record
+     updateRecord(); //updating record
   }
 
   
-  void updateRecord(BuildContext context, {bool? isTest}) async {
+  void updateRecord({bool? isTest}) async {
    
-      Loader.show(context);
+      Loader.show(scaffoldKey.currentContext);
     
     String email = await IndexedDB.getEmail();
     String token = await IndexedDB.getToken();
@@ -122,7 +123,8 @@ class DashBoardviewModel extends ChangeNotifier {
       }
     }
     
-      Loader.dismiss(context);
+   // ignore: use_build_context_synchronously
+    Loader.dismiss(scaffoldKey.currentContext);
     
   }
 

@@ -11,7 +11,7 @@ String? _name;
 String? _ac;
 Widget moneyTransfer(BuildContext context, DashBoardviewModel viewModel) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.36,
+    height: MediaQuery.of(context).size.height * 0.39,
     padding: leftRightPadding,
     child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
