@@ -20,9 +20,12 @@ class _ExpanseState extends State<Expanse> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: themeColor,
+          scrolledUnderElevation: 0.0,
           title: Text(
             "Expanse History",
             style: largeBlacklite,
+
           ),
         ),
         body: ListView.builder(

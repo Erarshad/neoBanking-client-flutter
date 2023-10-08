@@ -43,6 +43,7 @@ class _DashBoardState extends State<DashBoard> {
       appBar: AppBar(
         leadingWidth: 0.0,
         backgroundColor: themeColor,
+        scrolledUnderElevation: 0.0,
         leading: Padding(
             padding: onlyLeftPadding,
             child: const Icon(
@@ -186,7 +187,7 @@ class _DashBoardState extends State<DashBoard> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "UPI ID: ${viewModel.upiid}",
+                                        "UPI ID: ${viewModel.upiid??"fetching..."}",
                                         style: small,
                                       ),
                                       SizedBox(
@@ -338,18 +339,14 @@ class _DashBoardState extends State<DashBoard> {
                           context: context,
                           child: ListView.separated(
                               shrinkWrap: true,
+                              primary: false,
                               key: Key("${viewModel.transactions.length}"),
                               itemBuilder: (context, index) {
-                                return InkWell( 
-                                    onTap: () {
-                                      print(jsonEncode(
-                                          viewModel.pendingtransactions));
-                                    },
-                                    child: tile(
+                                return  tile(
                                         viewModel.transactions[index].name,
                                         "${formattedTime(viewModel.transactions[index].timeStamp)}, From ${viewModel.transactions[index].bankName}",
                                         "+₹${viewModel.transactions[index].transferredRupee}",
-                                        null));
+                                        null);
                               },
                               separatorBuilder: (context, index) {
                                 return const Divider();
@@ -369,6 +366,7 @@ class _DashBoardState extends State<DashBoard> {
                           context: context,
                           child: ListView.separated(
                               shrinkWrap: true,
+                              primary: false,
                                key: Key("${viewModel.pendingtransactions.length}"),
                               itemBuilder: (context, index) {
                                 return tile(
