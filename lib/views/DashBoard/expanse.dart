@@ -32,8 +32,10 @@ class _ExpanseState extends State<Expanse> {
           padding: leftRightPadding,
           itemCount: widget.data.length,
           itemBuilder: (context, index) {
-            return ListTile(
+            return (widget.data[index].isAdd == null || widget.data[index].isAdd == false)?
+            ListTile(
                 dense: true,
+                
                 contentPadding: EdgeInsets.zero,
                 leading: Avatar(
                   name: widget.data[index].name ?? "",
@@ -46,9 +48,9 @@ class _ExpanseState extends State<Expanse> {
                   style: graytinest,
                 ),
                 trailing: Text(
-                  "+₹${widget.data[index].transferredRupee}",
+                    "${(widget.data[index].isAdd == null || widget.data[index].isAdd == false) ? "-" : "+"}\$${widget.data[index].transferredRupee}",
                   style: smallBlackBold,
-                ));
+                )):const SizedBox();
           },
         ));
   }

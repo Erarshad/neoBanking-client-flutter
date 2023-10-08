@@ -347,7 +347,7 @@ class _DashBoardState extends State<DashBoard> {
                               return  tile(
                                       viewModel.transactions[index].name,
                                       "${formattedTime(viewModel.transactions[index].timeStamp)}, From ${viewModel.transactions[index].bankName}",
-                                      "${(viewModel.transactions[index].isAdd == null || viewModel.transactions[index].isAdd == false) ? "-" : "+"}₹${viewModel.transactions[index].transferredRupee}",
+                                      "${(viewModel.transactions[index].isAdd == null || viewModel.transactions[index].isAdd == false) ? "-" : "+"}\$${viewModel.transactions[index].transferredRupee}",
                                       null);
                             },
                             separatorBuilder: (context, index) {
