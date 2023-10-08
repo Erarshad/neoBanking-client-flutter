@@ -9,6 +9,10 @@ https://github.com/Erarshad/neoBanking-client-flutter/assets/57806993/43e02522-2
 
 https://drive.google.com/file/d/1IJLBuSnJ3at66_7sQAdMUQ8GDWdzXu8T/view?usp=sharing
 
+*default credential to login: *
+   email: test@mail.com
+   pwd: 123
+
 *requirement: *
 
     flutter sdk
