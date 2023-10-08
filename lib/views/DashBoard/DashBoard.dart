@@ -341,13 +341,14 @@ class _DashBoardState extends State<DashBoard> {
                         child: ListView.separated(
                             shrinkWrap: true,
                             primary: false,
+                            reverse: true,
                             key: Key("${viewModel.transactions.length}"),
                             itemBuilder: (context, index) {
-                              return tile(
-                                  viewModel.transactions[index].name,
-                                  "${formattedTime(viewModel.transactions[index].timeStamp)}, From ${viewModel.transactions[index].bankName}",
-                                  "-₹${viewModel.transactions[index].transferredRupee}",
-                                  null);
+                              return  tile(
+                                      viewModel.transactions[index].name,
+                                      "${formattedTime(viewModel.transactions[index].timeStamp)}, From ${viewModel.transactions[index].bankName}",
+                                      "${(viewModel.transactions[index].isAdd == null || viewModel.transactions[index].isAdd == false) ? "-" : "+"}₹${viewModel.transactions[index].transferredRupee}",
+                                      null);
                             },
                             separatorBuilder: (context, index) {
                               return const Divider();
@@ -368,6 +369,7 @@ class _DashBoardState extends State<DashBoard> {
                         child: ListView.separated(
                             shrinkWrap: true,
                             primary: false,
+                            reverse: true,
                             key: Key("${viewModel.pendingtransactions.length}"),
                             itemBuilder: (context, index) {
                               return tile(

@@ -11,7 +11,7 @@ import '../../util/loader.dart';
 
 class DashBoardviewModel extends ChangeNotifier {
   int selectedNeoBankingMode = 0;
-   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   void setSelectedNeoBankingMode(int val) {
     selectedNeoBankingMode = val;
     notifyListeners();
@@ -24,6 +24,15 @@ class DashBoardviewModel extends ChangeNotifier {
 
   void addIntoBankBalance(double money) {
     bankBalance = (bankBalance ?? 0.0) + money;
+    transactions.add(Transaction(
+      name: "self",
+      bankName: "Kotak Bank",
+      timeStamp: DateTime.now(),
+      transferredRupee: money.toString(),
+      isPending: false,
+      isAdd: true,
+    ));
+
     notifyListeners();
   }
 
@@ -47,14 +56,13 @@ class DashBoardviewModel extends ChangeNotifier {
       final basicDetails = basicDetailsFromJson(response.body);
       bankBalance = (basicDetails.wallet ?? 0.0).toDouble();
       upiid = basicDetails.upiId ?? "";
+      print(basicDetails.transactionObject);
       transactions = (basicDetails.transactionObject ?? "").isNotEmpty
-          ? transactionFromJson(
-              jsonDecode(basicDetails.transactionObject ?? ""))
-          : [];
+          ? transactionFromJson
+              (basicDetails.transactionObject ?? ""): [];
       pendingtransactions =
           (basicDetails.pendingTransactionObject ?? "").isNotEmpty
-              ? transactionFromJson(
-                  jsonDecode(basicDetails.pendingTransactionObject ?? ""))
+              ? transactionFromJson(basicDetails.pendingTransactionObject ?? "")
               : [];
       notifyListeners();
     } else {
@@ -64,9 +72,9 @@ class DashBoardviewModel extends ChangeNotifier {
     Loader.dismiss(context);
   }
 
-   List<Transaction> transactions = [];
+  List<Transaction> transactions = [];
 
-   List<Transaction> pendingtransactions = [];
+  List<Transaction> pendingtransactions = [];
 
   void addTransaction(String? name, String? amount, BuildContext context,
       {bool? isPending}) {
@@ -80,13 +88,10 @@ class DashBoardviewModel extends ChangeNotifier {
             isPending: false));
 
         bankBalance = (bankBalance ?? 0.0) - double.parse(amount ?? "0.0");
-       
-          notifyListeners();
-        
+
+        notifyListeners();
       } else {
-        
-          showToast("Not sufficient balance in your account");
-        
+        showToast("Not sufficient balance in your account");
       }
     } else {
       pendingtransactions.add(
@@ -98,34 +103,29 @@ class DashBoardviewModel extends ChangeNotifier {
             isPending: true),
       );
 
-     
-        notifyListeners();
-      
+      notifyListeners();
     }
 
-     updateRecord(); //updating record
+    updateRecord(); //updating record
   }
 
-  
   void updateRecord({bool? isTest}) async {
-   
-      Loader.show(scaffoldKey.currentContext);
-    
+    Loader.show(scaffoldKey.currentContext);
+
     String email = await IndexedDB.getEmail();
     String token = await IndexedDB.getToken();
     var response = await _netWork.postRecord("bearer $token", email,
         bankBalance?.toInt(), transactions, pendingtransactions);
-   
+
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)["status"] != 200) {
         showToast(jsonDecode(response.body)["message"] ??
             "Some problem occoured at server end while updating record");
       }
     }
-    
-   // ignore: use_build_context_synchronously
+
+    // ignore: use_build_context_synchronously
     Loader.dismiss(scaffoldKey.currentContext);
-    
   }
 
   void removePendingTransaction(int indx) {
