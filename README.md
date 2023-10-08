@@ -1,5 +1,12 @@
 **NEOBANKING APP CLIENT**
 *app demo video*
+
+
+
+
+https://github.com/Erarshad/neoBanking-client-flutter/assets/57806993/43e02522-22fb-4a79-99c8-a60433e4efe9
+
+
 https://drive.google.com/file/d/1IJLBuSnJ3at66_7sQAdMUQ8GDWdzXu8T/view?usp=sharing
 
 *requirement: *
