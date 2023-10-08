@@ -1,16 +1,21 @@
-# expanse_manager_v2
+**NEOBANKING APP CLIENT**
+*app demo video*
+https://drive.google.com/file/d/1IJLBuSnJ3at66_7sQAdMUQ8GDWdzXu8T/view?usp=sharing
 
-A new Flutter project.
+*requirement: *
 
-## Getting Started
+    flutter sdk
+    android studio
+    visual studio code
+    
+*steps to run*
 
-This project is a starting point for a Flutter application.
+    flutter pub get
+    flutter run
+*steps to run the test.dart file*
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    1. open test.dart file in vscode
+    2. see on top of main function there will be a indication that will be saying run|debug|profile
+    3. click on run indication
+    4. it will start executing tests
+    
