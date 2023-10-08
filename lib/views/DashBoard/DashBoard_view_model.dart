@@ -63,12 +63,12 @@ class DashBoardviewModel extends ChangeNotifier {
     Loader.dismiss(context);
   }
 
-  late List<Transaction> transactions = [];
+   List<Transaction> transactions = [];
 
-  late List<Transaction> pendingtransactions = [];
+   List<Transaction> pendingtransactions = [];
 
-  void addTransaction(String? name, String? amount, BuildContext? context,
-      {bool? isPending, bool? isTest}) {
+  void addTransaction(String? name, String? amount, BuildContext context,
+      {bool? isPending}) {
     if (isPending == null || isPending == false) {
       if ((bankBalance ?? 0.0) - double.parse(amount ?? "0.0") >= 0) {
         transactions.add(Transaction(
@@ -79,13 +79,13 @@ class DashBoardviewModel extends ChangeNotifier {
             isPending: false));
 
         bankBalance = (bankBalance ?? 0.0) - double.parse(amount ?? "0.0");
-        if (isTest == false || isTest == null) {
+       
           notifyListeners();
-        }
+        
       } else {
-        if (isTest == false || isTest == null) {
+        
           showToast("Not sufficient balance in your account");
-        }
+        
       }
     } else {
       pendingtransactions.add(
@@ -97,35 +97,33 @@ class DashBoardviewModel extends ChangeNotifier {
             isPending: true),
       );
 
-      if (isTest == false || isTest == null) {
+     
         notifyListeners();
-      }
+      
     }
 
      updateRecord(context); //updating record
   }
 
-   var recievedServerjsonObjectForTest;
-  void updateRecord(BuildContext? context, {bool? isTest}) async {
-    if (context != null) {
+  
+  void updateRecord(BuildContext context, {bool? isTest}) async {
+   
       Loader.show(context);
-    }
+    
     String email = await IndexedDB.getEmail();
     String token = await IndexedDB.getToken();
     var response = await _netWork.postRecord("bearer $token", email,
         bankBalance?.toInt(), transactions, pendingtransactions);
-    if (isTest == true) {
-      recievedServerjsonObjectForTest = response.body;
-    }
+   
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)["status"] != 200) {
         showToast(jsonDecode(response.body)["message"] ??
             "Some problem occoured at server end while updating record");
       }
     }
-    if (context != null) {
+    
       Loader.dismiss(context);
-    }
+    
   }
 
   void removePendingTransaction(int indx) {

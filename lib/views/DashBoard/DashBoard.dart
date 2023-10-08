@@ -338,8 +338,9 @@ class _DashBoardState extends State<DashBoard> {
                           context: context,
                           child: ListView.separated(
                               shrinkWrap: true,
+                              key: Key("${viewModel.transactions.length}"),
                               itemBuilder: (context, index) {
-                                return InkWell(
+                                return InkWell( 
                                     onTap: () {
                                       print(jsonEncode(
                                           viewModel.pendingtransactions));
@@ -368,6 +369,7 @@ class _DashBoardState extends State<DashBoard> {
                           context: context,
                           child: ListView.separated(
                               shrinkWrap: true,
+                               key: Key("${viewModel.pendingtransactions.length}"),
                               itemBuilder: (context, index) {
                                 return tile(
                                     viewModel.pendingtransactions[index].name,
